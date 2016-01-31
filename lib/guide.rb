@@ -48,7 +48,7 @@ class Guide
 
 	def do_action(action)
 		case action
-			when 'list'; puts "listing..."
+			when 'list'; list
 			when 'find'; puts "finding..."
 			when 'add' ; add
 			when 'quit'; return :quit
@@ -59,7 +59,7 @@ class Guide
 	def list
 		puts "\nListing  restaurants \n\n".upcase
 		restaurants = Restaurant.saved_restaurants
-		restaurant.each do |rest|
+		restaurants.each do |rest|
 			puts rest.name + " | " + rest.cuisine + " | " + rest.price
 		end
 	end

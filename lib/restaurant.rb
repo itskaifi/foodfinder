@@ -30,18 +30,20 @@ class Restaurant
 		return file_usable?
 	end
 
-	def self.save_restaurant
+	def self.saved_restaurants
+		# We have to ask ourselves, do we want a resh copy
+		# each time or do we want to store the result in a variable?
 		# read the restaurant file
-		restaurant = []
+		restaurants = []
 		if file_usable?
 			file = File.new(@@filepath,'r')
 			file.each_line do |line|
-				restaurant << Restaurant.new.import_line(line.chomp)
+				restaurants << Restaurant.new.import_line(line.chomp)
 			end
 			file.close
 		end
 		# return instance of restaurant
-		return restaurant
+		return restaurants
 	end
 
 	def self.build_using_questions
@@ -59,13 +61,14 @@ class Restaurant
 	end
 
 	def initialize(args={})
-		@name 	 = args[:name] 	 || ""
-		@cuisine = args[:cuisine]|| ""
-		@price   = args[:price]  || ""
+		@name 	 = args[:name] 	  || ""
+		@cuisine = args[:cuisine] || ""
+		@price   = args[:price]   || ""
 	end
 
 	def import_line(line)
-		line_array = line.split("\t")
+		line_array = line.split(" ")
+		#return line_array
 		@name, @cuisine, @price = line_array
 		return self
 	end
