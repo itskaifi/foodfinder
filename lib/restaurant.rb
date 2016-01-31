@@ -1,5 +1,10 @@
 class Restaurant 
 	@@filepath = nil
+	
+	# setter method for file path
+	def self.filepath=(path=nil)
+		@@filepath = File.join(APP_ROOT, path)
+	end
 
 	def self.file_exist?
 		# class should know if the restaurant file exists
