@@ -1,6 +1,11 @@
 require 'restaurant'
 
 class Guide
+	class Config
+		@@actions = ['list','find','add','quit']
+		def self.actions; @@actions; end
+	end
+
 	def initialize(path=nil)
 
 		# Locate the restaurant text file
@@ -23,13 +28,22 @@ class Guide
 		# action loop
 		result = nil
 		until result == :quit
-			# what do you want to do? (list, find, add, quit)
-			print "> "
-			user_response = gets.chomp
-			# do that action
-			result = do_action(user_response)
+			action = get_action
+			result = do_action(action)
 		end
 		conclusion
+	end
+
+	def get_action
+			action = nil
+			# Keep asking for user inputs untill we get a valid input
+			until Guide::Config.actions.include?(action)
+				puts "Action: " + Guide::Config.actions.join(",") if action
+				print "> "
+				user_response = gets.chomp
+				action = user_response.downcase.strip
+			end
+			return action
 	end
 
 	def do_action(action)
