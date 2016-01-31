@@ -32,7 +32,16 @@ class Restaurant
 
 	def self.save_restaurant
 		# read the restaurant file
+		restaurant = []
+		if file_usable?
+			file = File.new(@@filepath,'r')
+			file.each_line do |line|
+				restaurant << Restaurant.new.import_line(line.chomp)
+			end
+			file.close
+		end
 		# return instance of restaurant
+		return restaurant
 	end
 
 	def self.build_using_questions
@@ -53,6 +62,12 @@ class Restaurant
 		@name 	 = args[:name] 	 || ""
 		@cuisine = args[:cuisine]|| ""
 		@price   = args[:price]  || ""
+	end
+
+	def import_line(line)
+		line_array = line.split("\t")
+		@name, @cuisine, @price = line_array
+		return self
 	end
 
 	def save
