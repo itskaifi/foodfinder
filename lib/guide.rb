@@ -21,14 +21,13 @@ class Guide
 		introduction
 	
 		# action loop
-		loop do 
+		result = nil
+		until result == :quit
 			# what do you want to do? (list, find, add, quit)
 			print "> "
 			user_response = gets.chomp
 			# do that action
 			result = do_action(user_response)
-			# repeat until user quites
-			break if result == :quit
 		end
 		conclusion
 	end
