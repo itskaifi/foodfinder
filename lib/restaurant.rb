@@ -1,7 +1,5 @@
-class Restaurant 
+class Restaurant
 	@@filepath = nil
-	
-	# setter method for file path
 	def self.filepath=(path=nil)
 		@@filepath = File.join(APP_ROOT, path)
 	end

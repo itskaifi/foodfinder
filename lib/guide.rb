@@ -2,9 +2,9 @@ require 'restaurant'
 
 class Guide
 	def initialize(path=nil)
+
 		# Locate the restaurant text file
 		Restaurant.filepath = path
-
 		if Restaurant.file_usable?
 			puts "Found restaurant file."
 		# or create a new file
@@ -19,11 +19,33 @@ class Guide
 
 	def launch!
 		introduction
+	
 		# action loop
-		# what do you want to do? (list, find, add, quit)
-		# do that action
-		# repeat tuile user quits
+		loop do 
+			# what do you want to do? (list, find, add, quit)
+			print "> "
+			user_response = gets.chomp
+			# do that action
+			result = do_action(user_response)
+			# repeat until user quites
+			break if result == :quit
+		end
 		conclusion
+	end
+
+	def do_action(action)
+		case action
+		when 'list'
+			puts "listing..."
+		when 'find'
+			puts "finding..."
+		when 'add'
+			puts "adding...."
+		when 'quit'
+			return :quit
+		else
+			puts " I don't understand that Command \n"
+		end
 	end
 
 	def introduction
@@ -32,6 +54,6 @@ class Guide
 	end
 
 	def conclusion
-		puts "\n<<< Goodbye and Have fun! >>> \n\n\n"
+		puts "\n\n <<< Goodbye and Have fun! >>> \n\n "
 	end
 end
