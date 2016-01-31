@@ -35,29 +35,24 @@ class Guide
 	end
 
 	def get_action
-			action = nil
-			# Keep asking for user inputs untill we get a valid input
-			until Guide::Config.actions.include?(action)
-				puts "Action: " + Guide::Config.actions.join(",") if action
-				print "> "
-				user_response = gets.chomp
-				action = user_response.downcase.strip
-			end
-			return action
+		action = nil
+		# Keep asking for user inputs untill we get a valid input
+		until Guide::Config.actions.include?(action)
+			puts "Action: " + Guide::Config.actions.join(",") if action
+			print "> "
+			user_response = gets.chomp
+			action = user_response.downcase.strip
+		end
+		return action
 	end
 
 	def do_action(action)
 		case action
-		when 'list'
-			puts "listing..."
-		when 'find'
-			puts "finding..."
-		when 'add'
-			puts "adding...."
-		when 'quit'
-			return :quit
-		else
-			puts " I don't understand that Command \n"
+			when 'list'; puts "listing..."
+			when 'find'; puts "finding..."
+			when 'add' ; add
+			when 'quit'; return :quit
+			else puts " I don't understand that Command \n"
 		end
 	end
 
